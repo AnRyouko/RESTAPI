@@ -317,7 +317,7 @@ async function main() {
     }
 
     http.createServer(async (req, res) => {
-
+        let repeat = false;
         if (req.url.startsWith("/api")) {
             const queryObject = url.parse(req.url, true).query;
             let apiResponse = "failed";
@@ -369,25 +369,29 @@ async function main() {
             })
         }
         else if(req.url === "/server") {
-            await axiosRequest.get("https://growtopia2.com/growtopia/server_data.php", {
-                headers: header,
-                proxy: proxy
-            })
-            .then(async response => {
-                console.log(`Data: ${response.data}`);
-                end(res, response.data);
-            })
-            .catch(err => {
-                console.log(`Error: ${err}`);
-                end(res, "failed");
-            })
+            do {
+                await axiosRequest.get("https://growtopia2.com/growtopia/server_data.php", {
+                    headers: header,
+                    proxy: proxy,
+                    timeout: 5000
+                })
+                .then(async response => {
+                    repeat = false;
+                    console.log(`Data: ${response.data}`);
+                    end(res, response.data);
+                })
+                .catch(err => {
+                    repeat = true;
+                    console.log(`Error: ${err}`);
+                })
+            } while (repeat);
         }
         else {
             end(res);
         }
-    }).listen(process.env.PORT || 8080);
+    }).listen(process.env.PORT || 3000);
 
-    console.log(`Server running at http://localhost:${process.env.PORT || 8080}/`);
+    console.log(`Server running at http://localhost:${process.env.PORT || 3000}/`);
 }
 
 main();
