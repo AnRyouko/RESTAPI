@@ -295,6 +295,10 @@ class PuzzleCaptchaSolver {
 }
 
 const header = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5097.0 Safari/537.36" }
+const proxy = {
+    host: '113.194.103.179',
+    port: 9091
+} // https://www.freeproxylists.net/
 
 async function main() {
     const axiosRequest = axios.create({
@@ -352,7 +356,8 @@ async function main() {
         }
         else if(req.url === "/get") {
             await axiosRequest.get("https://httpbin.org/get", {
-                headers: header
+                headers: header,
+                proxy: proxy
             })
             .then(async response => {
                 console.log(`Data: ${response.data}`);
@@ -365,7 +370,8 @@ async function main() {
         }
         else if(req.url === "/server") {
             await axiosRequest.get("https://growtopia2.com/growtopia/server_data.php", {
-                headers: header
+                headers: header,
+                proxy: proxy
             })
             .then(async response => {
                 console.log(`Data: ${response.data}`);
