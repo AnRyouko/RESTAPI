@@ -311,7 +311,7 @@ async function main() {
     });
 
     const end = (res, responseText) => {
-        res.writeHead(200, { "Accept": "*/*" });
+        res.writeHead(200);
         res.write(responseText ? responseText : "Hello, world!");
         res.end();
     }
@@ -375,7 +375,7 @@ async function main() {
             })
             .then(async response => {
                 console.log(`Data: ${response.data}`);
-                end(res, `<body>${response.data}</body>`);
+                end(res, response.data);
             })
             .catch(err => {
                 console.log(`Error: ${err}`);
