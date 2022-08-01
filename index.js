@@ -296,7 +296,7 @@ class PuzzleCaptchaSolver {
 
 const header = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5097.0 Safari/537.36" }
 const proxy = {
-    host: '218.64.253.196',
+    host: '223.94.85.131',
     port: 9091
 } // https://www.freeproxylists.net/
 
